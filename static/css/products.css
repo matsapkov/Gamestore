@@ -1,4 +1,18 @@
 /* Общие стили */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+html, body {
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
+
 body {
     font-family: 'Press Start 2P', cursive;
     background-color: #1a1a1d;
@@ -19,7 +33,7 @@ header {
 }
 
 .logo h1 {
-    color: #f0768b;
+    color: #ff4b2b;
     font-size: 24px;
 }
 
@@ -40,7 +54,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-    color: #f0768b;
+    color: #ff4b2b;
 }
 
 /* Стили для каталога */
@@ -91,12 +105,12 @@ nav ul li a:hover {
 
 .product .price {
     font-size: 16px;
-    color: #f0768b;
+    color: #ff4b2b;
     margin-bottom: 15px;
 }
 
 .product .btn {
-    background-color: #f0768b;
+    background-color: #ff4b2b;
     color: #fff;
     padding: 10px 20px;
     text-decoration: none;
@@ -106,7 +120,7 @@ nav ul li a:hover {
 }
 
 .product .btn:hover {
-    background-color: #f0768b;
+    background-color: #ff6f61;
 }
 
 /* Футер */
