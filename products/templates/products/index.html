@@ -1,15 +1,13 @@
-
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>Сайт НИРСа пятого семестра</h1>
-<a href="{% url 'products:index' %}">Каталог</a>
-</body>
-</html>
+{% extends 'products/base.html' %}
+{% load static %}
+{% block css %}
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %} 
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Добро пожаловать в GameStore!</h2>
+            <p>Твой лучший источник игр на все платформы</p>
+        </div>
+    </section>
+{% endblock %}

@@ -1,10 +1,38 @@
+{% load static %}
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>{{ title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameStore - Магазин Видеоигр</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    {% block css %} {% endblock %}
+    
+    
 </head>
 <body>
-<h1>Заглушка</h1>
+    <header>
+        <div class="logo">
+            <a class="main-link" href="{% url 'index' %}"><h1>GameStore</h1></a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'index' %}">Главная</a></li>
+                <li><a href="{% url 'products:index' %}">Каталог игр</a></li>
+                <li><a href="#">О нас</a></li>
+                <li><a href="#">Контакты</a></li>
+                <li><a href="#">Войти</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    {% block content %}{% endblock %} 
+
+    <footer>
+        <p>© 2024 GameStore. Все права защищены.</p>
+    </footer>
 </body>
 </html>
