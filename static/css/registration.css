@@ -25,25 +25,29 @@ header {
   align-items: center;
   padding: 20px 40px;
   background-color: #0d0d0f;
-  height: 28px;
+  min-height: 28px;
 }
 
 .logo a {
   text-decoration: none;
+
 }
 
 .logo h1 {
   color: #f0768b;
   font-size: 24px;
+  margin: 0;
 }
 
 nav ul {
   list-style: none;
   display: flex;
+
 }
 
 nav ul li {
   margin-left: 30px;
+
 }
 
 nav ul li a {
