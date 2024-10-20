@@ -1,41 +1,20 @@
 {% extends 'products/base.html' %}
 {% load static %}
-
 {% block css %}
     <link rel="stylesheet" href="{% static 'css/products.css' %}">
 {% endblock %}
-
 {% block content %} 
     <section class="catalog">
         <h2>Каталог игр</h2>
         <div class="products">
+            {% for product in products %}
             <div class="product">
-                <img src="{% static 'img/GOW.jpg' %}" alt="Game 1">
-                <h3>God of War Ragnarok</h3>
-                <p class="price">₽1999</p>
+                <img src="{{ product.image.url }}" alt="Game 1">
+                <h3>{{ product.name }}</h3>
+                <p class="price">₽{{ product.price }}</p>
                 <a href="#" class="btn">Купить</a>
             </div>
-            <div class="product">
-                <img src="{% static 'img/Marvel-Spiderman-2.jpg' %}" alt="Game 2">
-                <h3>Marvel's Spider-Man</h3>
-                <p class="price">₽2499</p>
-                <a href="#" class="btn">Купить</a>
-            </div>
-            <div class="product">
-                <img src="{% static 'img/TLOU.jpg' %}" alt="Game 3">
-                <h3>The Last Of Us Part II</h3>
-                <p class="price">₽1799</p>
-                <a href="#" class="btn">Купить</a>
-            </div>
-            <div class="product">
-                <img src="{% static 'img/Minecraftl.jpg' %}" alt="Game 4">
-                <h3>Minecraft</h3>
-                <p class="price">₽2999</p>
-                <a href="#" class="btn">Купить</a>
-            </div>
-
+            {% endfor %}
         </div>
     </section>
 {% endblock %}
-
-
