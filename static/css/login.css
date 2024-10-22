@@ -189,18 +189,17 @@ form .inputGroup1.focusWithText .helper {
 }
 /* Стили для списка ошибок */
 form ul.error {
-    color: red; /* Красный цвет текста */
-    list-style-type: none; /* Убираем маркеры списка */
-    padding: 0; /* Убираем внутренние отступы */
-    margin: 5px 0; /* Отступы сверху и снизу */
+    list-style: none;
+    padding: 0;
+    margin-top: 25px;
 }
 
 /* Стили для каждого текста ошибки */
 form li.error-text {
-    color: red; /* Красный цвет текста для каждой ошибки */
-    font-size: 14px; /* Размер шрифта */
-    font-weight: bold; /* Сделаем текст жирным (по желанию) */
-    margin-bottom: 5px; /* Отступ между ошибками */
+    padding: 10px;
+    border: 1px solid red; /* Или любой другой стиль для сообщений об ошибках */
+    color: red;
+    margin-bottom: 10px;
 }
 .messages {
     list-style: none;
