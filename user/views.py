@@ -6,7 +6,6 @@ from user.models import User
 from user.forms import UserLoginForm
 from user.authentication import EmailAuthBackend
 # Create your views here.
-AUTH = EmailAuthBackend()
 
 
 def login(request):
@@ -15,7 +14,7 @@ def login(request):
         if form.is_valid():
             email = request.POST['email']
             password = request.POST['password']
-            user = AUTH.authenticate(request, username=email, password=password)
+            user = auth.authenticate(request, username=email, password=password, backend=EmailAuthBackend())
             if user is not None:
                 auth.login(request, user)
                 return HttpResponseRedirect(reverse('index'))
