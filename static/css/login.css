@@ -63,7 +63,7 @@ form {
   display: block;
   width: 100%;
   max-width: 400px;
-  background-color: rgba(0, 0, 0, 0.5); /* Черный с 50% прозрачностью */
+  background-color: rgba(0, 0, 0, 0.5);
   margin: 0;
   padding: 2.25em;
   box-sizing: border-box;
@@ -176,7 +176,6 @@ form .inputGroup1 .helper1 {
   transition: transform .2s ease-out, opacity .2s linear;
 }
 form .inputGroup1.focusWithText .helper {
-  /*input[type='email']:focus + .helper {*/
   transform: translate(1.4em, 2em) scale(0.65);
   opacity: 1;
 }
@@ -197,7 +196,7 @@ form ul.error {
 /* Стили для каждого текста ошибки */
 form li.error-text {
     padding: 10px;
-    border: 1px solid red; /* Или любой другой стиль для сообщений об ошибках */
+    border: 1px solid red;
     color: red;
     margin-bottom: 10px;
 }
@@ -209,7 +208,7 @@ form li.error-text {
 
 .messages li {
     padding: 10px;
-    border: 1px solid red; /* Или любой другой стиль для сообщений об ошибках */
+    border: 1px solid red;
     color: red;
     margin-bottom: 10px;
 }

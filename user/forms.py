@@ -1,5 +1,3 @@
-from django.contrib.auth import authenticate
-from django.contrib.auth.forms import AuthenticationForm
 from user.models import User
 from django import forms
 

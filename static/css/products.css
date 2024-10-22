@@ -3,14 +3,14 @@
 body {
     font-family: 'Press Start 2P', cursive;
     background: url('../img/Cyberpunk.jpg') no-repeat center center fixed;
-    background-size: cover; /* Фон автоматически подстраивается под размер экрана */
+    background-size: cover;
     color: #fff;
     display: flex;
-    flex-direction: column; /* Flexbox для расположения футера внизу */
-    min-height: 100vh; /* Высота страницы минимум 100% от высоты окна */
+    flex-direction: column;
+    min-height: 100vh;
 }
 main {
-    flex-grow: 1; /* Это позволяет основной части страницы расширяться и удерживать футер внизу */
+    flex-grow: 1;
 }
 html {
     height: 100%;
@@ -70,8 +70,8 @@ nav ul li a:hover {
 /* Сетка товаров */
 .products {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 колонки в ряду */
-    gap: 20px; /* Промежуток между карточками */
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
 }
 
 /* Стили для товара */
@@ -90,9 +90,9 @@ nav ul li a:hover {
 
 .product img {
     width: 100%;
-    height: 550px; /* Устанавливаем фиксированную высоту */
-    object-fit: cover; /* Обеспечивает, что изображение будет обрезано по нужным пропорциям */
-    border-radius: 8px; /* Для сохранения закругленных углов, если требуется */
+    height: 550px;
+    object-fit: cover;
+    border-radius: 8px;
     margin-bottom: 10px;
 }
 
