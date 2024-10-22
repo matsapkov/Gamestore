@@ -4,7 +4,7 @@ from user.models import User
 from django import forms
 
 
-class UserLoginForm(AuthenticationForm):
+class UserLoginForm(forms.Form):
     email = forms.EmailField(widget=forms.TextInput(attrs={
         'class': 'email',
         'id': 'email'

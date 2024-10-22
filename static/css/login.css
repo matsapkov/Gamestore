@@ -187,6 +187,22 @@ form .inputGroup1.focusWithText .helper {
 .text{
   color: #f0768b;
 }
+/* Стили для списка ошибок */
+form ul.error {
+    color: red; /* Красный цвет текста */
+    list-style-type: none; /* Убираем маркеры списка */
+    padding: 0; /* Убираем внутренние отступы */
+    margin: 5px 0; /* Отступы сверху и снизу */
+}
+
+/* Стили для каждого текста ошибки */
+form li.error-text {
+    color: red; /* Красный цвет текста для каждой ошибки */
+    font-size: 14px; /* Размер шрифта */
+    font-weight: bold; /* Сделаем текст жирным (по желанию) */
+    margin-bottom: 5px; /* Отступ между ошибками */
+}
+
 footer {
   text-align: center;
   padding: 20px 0;

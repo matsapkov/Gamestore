@@ -100,18 +100,44 @@
 			</svg>
 		</div>
 	</div>
-	<div class="inputGroup inputGroup1">
-		<label for="{{ form.email.id_for_label }}">Email</label>
+{#	<div class="inputGroup inputGroup1">#}
+{#		<label for="{{ form.email.id_for_label }}">Email</label>#}
 {#		<input type="text" id="email" class="email" maxlength="256"/>#}
-        {{ form.email }}
-		<p class="helper helper1">email@domain.com</p>
-		<span class="indicator"></span>
-	</div>
-	<div class="inputGroup inputGroup2">
-		<label for="{{form.password.id_for_label}}">Password</label>
+{#        {{ form.email }}#}
+{#		<p class="helper helper1">email@domain.com</p>#}
+{#		<span class="indicator"></span>#}
+{#	</div>#}
+{#	<div class="inputGroup inputGroup2">#}
+{#		<label for="{{form.password.id_for_label}}">Password</label>#}
 {#		<input type="password" id="password" class="password" />#}
+{#        {{ form.password }}#}
+{#	</div>#}
+    <div class="inputGroup inputGroup1">
+        <label for="{{ form.email.id_for_label }}">Email</label>
+        {{ form.email }}
+        <p class="helper helper1">email@domain.com</p>
+        <span class="indicator"></span>
+        <!-- Отображение ошибок для поля email -->
+        {% if form.email.errors %}
+            <ul class="error">
+                {% for error in form.email.errors %}
+                    <li class="error-text">{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+    <div class="inputGroup inputGroup2">
+        <label for="{{form.password.id_for_label}}">Password</label>
         {{ form.password }}
-	</div>
+        <!-- Отображение ошибок для поля password -->
+        {% if form.password.errors %}
+            <ul class="error">
+                {% for error in form.password.errors %}
+                    <li class="error-text">{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>      
 	<div class="inputGroup inputGroup3">
 		<button id="login">Log in</button>
 	</div>

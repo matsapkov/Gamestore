@@ -4,31 +4,25 @@ from django.contrib import auth
 from django.urls import reverse
 from user.models import User
 from user.forms import UserLoginForm
-
+from user.authentication import EmailAuthBackend
 # Create your views here.
+AUTH = EmailAuthBackend()
 
 
 def login(request):
     if request.method == 'POST':
         form = UserLoginForm(data=request.POST)
-        print('--------------------------------------------------')
         if form.is_valid():
-            print('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
-            email = form.cleaned_data['email']
-            password = form.cleaned_data['password']
-            # email = request.POST['email']
-            # password = request.POST['password']
-            user = authenticate(email=email, password=password)
-
+            email = request.POST['email']
+            password = request.POST['password']
+            user = AUTH.authenticate(request, username=email, password=password)
             if user is not None:
-                login(request, user)
-                return redirect('index')
+                auth.login(request, user)
+                return HttpResponseRedirect(reverse('index'))
     else:
         form = UserLoginForm()
     context = {'form': form}
     return render(request, 'user/login.html', context)
-
-
 
 
 def registration(request):
