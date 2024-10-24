@@ -2,12 +2,29 @@
 {% load static %}
 {% block css %}
     <link href="{% static 'css/index.css' %}" rel="stylesheet">
+    <script src="{% static 'js/slider.js' %}"></script>
 {% endblock %}
 {% block content %} 
     <section class="hero">
         <div class="hero-content">
             <h2>Добро пожаловать в GameStore!</h2>
             <p>Твой лучший источник игр на все платформы</p>
+            <h3>Горячие новинки!</h3>
+            <div class="carousel-3d" data-gap="40px">
+                <figure>
+                    <div><a href="#any"><img src="{% static 'img/AlanWake2.jpeg' %}" alt=""/></a></div>
+                    <div><a href="#any"><img src="{% static 'img/Assassins-Creed-Mirage.jpg' %}" alt=""/></a></div>
+                    <div><a href="#any"><img src="{% static 'img/Call_Of_Duty_MW3_2023.jpg' %}" alt=""/></a></div>
+                    <div><a href="#any"><img src="{% static 'img/battlefield-2042.jpg' %}" alt=""/></a></div>
+                    <div><a href="#any"><img src="{% static 'img/BG.jpg' %}" alt=""/></a></div>
+                    <div><a href="#any"><img src="{% static 'img/HD.jpg' %}" alt=""/></a></div>
+                    <div><a href="#any"><img src="{% static 'img/starfield.jpg' %}" alt=""/></a></div>
+                </figure>
+                <nav>
+                    <button class="nav prev">Назад</button>
+                    <button class="nav next">Вперед</button>
+                </nav>
+            </div>
         </div>
     </section>
 {% endblock %}
