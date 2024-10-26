@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect
 from django.contrib import auth, messages
 from django.urls import reverse
-from user.forms import UserLoginForm
+from user.forms import UserLoginForm, UserRegistrationForm
 from user.authentication import EmailAuthBackend
 # Create your views here.
 
@@ -25,5 +25,12 @@ def login(request):
 
 
 def registration(request):
-    context = {'title': 'Регистрация'}
+    if request.method == 'POST':
+        form = UserRegistrationForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('index'))
+    else:
+        form = UserRegistrationForm()
+    context = {'form': form}
     return render(request, 'user/registration.html', context)
