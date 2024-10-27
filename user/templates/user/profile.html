@@ -1,10 +1,71 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>Будущая страница профиля клиента</h1>
-</body>
-</html>
+{% extends 'user/base.html' %}
+
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+    
+    <!-- Профиль -->
+        <div class="profile-section">
+            <h2>Profile</h2>
+            <form action="{% url 'user:profile' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="profile-form">
+                    <div class="avatar-upload">
+                        <img src="{% if user.image %} {{ user.image.url }} {% else %} {% static 'img/default-avatar-icon.jpg' %} {% endif %}"
+                             alt="Аватар">
+                        {{ form.image }}
+                        <label class="custom-file-label" for="{{ form.image.id_for_label }}"></label>
+                    </div>
+                    <div class="form-fields">
+                        <label for="{{ form.first_name.id_for_label }}">First Name</label>
+                        {{ form.first_name }}
+                    
+                        <label for="{{ form.last_name.id_for_label }}">Last Name</label>
+                        {{ form.last_name }}
+                    
+                        <label for="{{ form.username.id_for_label }}">Username</label>
+                        {{ form.username }}
+                    
+                        <label for="{{ form.email.id_for_label }}">Email</label>
+                        {{ form.email }}
+                    
+                        <label for="{{ form.address.id_for_label }}">Address</label>
+                        {{ form.address }}
+    
+                    </div>
+                </div>
+                <button type="submit" class="save-btn">Save</button>
+            </form>
+            <a href="{% url 'user:logout' %}" class="exit-btn">Exit</a>
+        </div>
+    
+        <!-- Корзина -->
+        <div class="cart-section">
+            <h2>Cart <span class="cart-count">3</span></h2>
+            <div class="cart-item">
+                <img src="path/to/product-image.jpg" alt="Product Image" class="product-image">
+                <div class="product-details">
+                    <p class="product-name">Product name</p>
+                    <p class="product-description">Product description</p>
+                    <div class="product-controls">
+                        <input type="number" value="1" min="1" id="product-quantity" class="product-quantity">
+                        <p class="product-price">2 390 руб.</p>
+                    </div>
+                    <p class="total-price" id="total-price">Total Price: <span id="total-price-value">2 390 руб.</span></p>
+                    <button class="delete-btn">🗑</button>
+                </div>
+            </div>
+            <div class="cart-total">
+                <p>Total</p>
+                <p class="total-price">2 390 руб.</p>
+            </div>
+            <button class="checkout-btn">Confirm order</button>
+            
+        </div>
+    </div>
+{% endblock %}
