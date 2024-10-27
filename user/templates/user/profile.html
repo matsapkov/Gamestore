@@ -1,18 +1,18 @@
 {% extends 'user/base.html' %}
-
 {% load static %}
-
 {% block css %}
     <link rel="stylesheet" href="{% static 'css/profile.css' %}">
 {% endblock %}
-
+{% block JavaScript %}
+    <script defer src="{% static 'js/profile-save-btn.js' %}"></script>
+{% endblock %}
 {% block content %}
     <div class="container">
     
     <!-- Профиль -->
         <div class="profile-section">
             <h2>Profile</h2>
-            <form action="{% url 'user:profile' %}" method="post" enctype="multipart/form-data">
+            <form id="profile-form" action="{% url 'user:profile' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="profile-form">
                     <div class="avatar-upload">
@@ -39,7 +39,7 @@
     
                     </div>
                 </div>
-                <button type="submit" class="save-btn">Save</button>
+                <button type="submit" class="save-btn" id="save-btn" style="display: none;">Save</button>
             </form>
             <a href="{% url 'user:logout' %}" class="exit-btn">Exit</a>
         </div>
