@@ -1,6 +1,10 @@
 from django.shortcuts import render, HttpResponseRedirect
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+import json
 from products.models import Product, ProductCategory, Basket
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 
 def index(request):
@@ -39,3 +43,29 @@ def basket_remove(request, basket_id):
     basket = Basket.objects.get(pk=basket_id)
     basket.delete()
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+
+@require_POST
+@csrf_exempt
+def basket_update(request, basket_id):
+    try:
+        data = json.loads(request.body)
+        quantity = int(data.get('quantity', 1))
+
+        # Находим элемент корзины и обновляем его количество
+        basket = Basket.objects.get(id=basket_id)
+        basket.quantity = quantity
+        basket.save()
+
+        # Пересчитываем стоимость товара и общую стоимость корзины
+        item_total = basket.product.price * basket.quantity
+        cart_total = sum(item.product.price * item.quantity for item in Basket.objects.filter(user=request.user))
+
+        return JsonResponse({
+            'item_total': item_total,
+            'cart_total': cart_total
+        })
+    except Basket.DoesNotExist:
+        return JsonResponse({'error': 'Basket item not found'}, status=404)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)

@@ -1,29 +1,57 @@
 <!-- Корзина -->
 {% if baskets %}
     <div class="cart-section">
-            <h2>Cart: <span class="cart-count">{{ baskets|length }} {% if baskets|length > 1 %} items {% else %} item {% endif %}</span></h2>
-            {% for basket in baskets %}
-                <div class="cart-item">
+        <h2>Cart: <span class="cart-count">{{ baskets|length }} {% if baskets|length > 1 %} items {% else %} item {% endif %}</span></h2>
+        {% for basket in baskets %}
+            <div class="cart-item" data-basket-id="{{ basket.id }}">
                 <img src="{{ basket.product.image.url }}" alt="Product Image" class="product-image">
                 <div class="product-details">
                     <p class="product-name">{{ basket.product.name }}</p>
                     <p class="product-description">{{ basket.product.description }}</p>
                     <div class="product-controls">
-                        <input type="number" value="{{ basket.quantity }}" min="1" id="product-quantity" class="product-quantity">
+                        <input type="number" value="{{ basket.quantity }}" min="1" class="product-quantity" 
+                               data-basket-id="{{ basket.id }}" data-price="{{ basket.product.price }}">
                         <p class="product-price">{{ basket.product.price }} руб.</p>
                     </div>
-                    <p class="total-price" id="total-price">Total Price: <span id="total-price-value">{{ basket.sum }} руб.</span></p>
+                    <p class="total-price">Total Price: <span id="total-price-{{ basket.id }}">{{ basket.sum }} руб.</span></p>
                     <a class="delete-btn" href="{% url 'products:basket_remove' basket.id %}">🗑</a>
                 </div>
             </div>
-            {% endfor %}
-            <div class="cart-total">
-                <p>Total</p>
-                <p class="total-price">{{ baskets.total_sum }} руб.</p>
-            </div>
-            <button class="checkout-btn">Confirm order</button>
-            
+        {% endfor %}
+        <div class="cart-total">
+            <p>Total</p>
+            <p class="total-price" id="grand-total">{{ baskets.total_sum }} руб.</p>
+        </div>
+        <button class="checkout-btn">Confirm order</button>
     </div>
+    
+<script>
+document.querySelectorAll('.product-quantity').forEach(input => {
+    input.addEventListener('change', function() {
+        const basketId = this.dataset.basketId;
+        const quantity = this.value;
+
+        fetch(`/products/baskets/update/${basketId}/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({ quantity: quantity })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Обновление стоимости конкретного товара
+            document.getElementById(`total-price-${basketId}`).textContent = data.item_total + ' руб.';
+
+            // Обновление общей стоимости
+            document.getElementById('grand-total').textContent = data.cart_total + ' руб.';
+        })
+        .catch(error => console.error('Error:', error));
+    });
+});
+</script>
+    
 {% else %}
     <h2>Cart <span class="cart-count">Empty</span></h2>
 {% endif %}
