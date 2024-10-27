@@ -1,11 +1,10 @@
-from django.contrib.auth.views import LoginView
-from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, HttpResponseRedirect
 from django.contrib import auth, messages
 from django.urls import reverse
 from user.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
 from user.authentication import EmailAuthBackend
-from django.contrib.auth.decorators import login_required
+from products.models import Basket
 # Create your views here.
 
 
@@ -39,6 +38,7 @@ def registration(request):
     return render(request, 'user/registration.html', context)
 
 
+@login_required
 def profile(request):
     if request.method == 'POST':
         form = UserProfileForm(instance=request.user, data=request.POST, files=request.FILES)
@@ -49,7 +49,13 @@ def profile(request):
             print(form.errors)
     else:
         form = UserProfileForm(instance=request.user)
-    context = {'title': 'Gamestore - Profile', 'form': form}
+
+    baskets = Basket.objects.filter(user=request.user)
+
+    context = {'title': 'Gamestore - Profile',
+               'form': form,
+               'baskets': Basket.objects.filter(user=request.user),
+               }
     return render(request, 'user/profile.html', context)
 
 

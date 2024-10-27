@@ -12,7 +12,7 @@
                 <img src="{{ product.image.url }}" alt="Game 1">
                 <h3>{{ product.name }}</h3>
                 <p class="price">₽{{ product.price }}</p>
-                <a href="#" class="btn">Купить</a>
+                <a href="{% url 'products:basket_add' product.id %}" class="btn">Купить</a>
             </div>
             {% endfor %}
         </div>

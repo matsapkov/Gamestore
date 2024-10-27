@@ -117,7 +117,35 @@ nav ul li a:hover {
     background-color: rgba(0, 0, 0, 0.7);
     color: #f0768b;
 }
+.avatar-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
+.avatar-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.custom-file-label {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    border: 5px #f0768b solid;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.custom-file-label:hover {
+    background-color: #f0768b;
+}
 .save-btn {
     width: 100%;
     padding: 10px;
@@ -132,7 +160,7 @@ nav ul li a:hover {
 }
 
 .save-btn:hover {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: #138496;
     color: white;
     border-color: #138496;
 }
@@ -151,7 +179,7 @@ nav ul li a:hover {
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 .exit-btn:hover {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: red;
     color: white;
     border-color: red;
 }
@@ -211,11 +239,13 @@ nav ul li a:hover {
 }
 
 .delete-btn {
+    text-decoration: none;
     background: none;
     border: none;
     color: #dc3545;
     cursor: pointer;
-    font-size: 1.2rem;
+    font-size: 3rem;
+
 }
 
 .cart-total {

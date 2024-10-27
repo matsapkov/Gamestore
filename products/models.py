@@ -1,5 +1,5 @@
 from django.db import models
-
+from user.models import User
 # Create your models here.
 
 
@@ -23,5 +23,26 @@ class Product(models.Model):
         return self.name
 
 
+class BasketQuerySet(models.QuerySet):
+    def total_sum(self):
+        return sum(basket.sum() for basket in self)
+
+    def total_quantity(self):
+        return sum(basket.quantity for basket in self)
+
+
 class Basket(models.Model):
-    pass
+    user = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    product = models.ForeignKey(to=Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    objects = BasketQuerySet.as_manager()
+
+    def __str__(self):
+        return f'Корзина для {self.user.username} | Игра {self.product.name}'
+
+    def sum(self):
+        return self.product.price * self.quantity
+
+

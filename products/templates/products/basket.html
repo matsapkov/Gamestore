@@ -1,0 +1,31 @@
+<!-- Корзина -->
+{% if baskets %}
+    <div class="cart-section">
+            <h2>Cart: <span class="cart-count">{{ baskets|length }} {% if baskets|length > 1 %} items {% else %} item {% endif %}</span></h2>
+            {% for basket in baskets %}
+                <div class="cart-item">
+                <img src="{{ basket.product.image.url }}" alt="Product Image" class="product-image">
+                <div class="product-details">
+                    <p class="product-name">{{ basket.product.name }}</p>
+                    <p class="product-description">{{ basket.product.description }}</p>
+                    <div class="product-controls">
+                        <input type="number" value="{{ basket.quantity }}" min="1" id="product-quantity" class="product-quantity">
+                        <p class="product-price">{{ basket.product.price }} руб.</p>
+                    </div>
+                    <p class="total-price" id="total-price">Total Price: <span id="total-price-value">{{ basket.sum }} руб.</span></p>
+                    <a class="delete-btn" href="{% url 'products:basket_remove' basket.id %}">🗑</a>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="cart-total">
+                <p>Total</p>
+                <p class="total-price">{{ baskets.total_sum }} руб.</p>
+            </div>
+            <button class="checkout-btn">Confirm order</button>
+            
+    </div>
+{% else %}
+    <h2>Cart <span class="cart-count">Empty</span></h2>
+{% endif %}
+
+

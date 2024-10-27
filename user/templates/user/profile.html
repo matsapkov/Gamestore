@@ -16,56 +16,39 @@
                 {% csrf_token %}
                 <div class="profile-form">
                     <div class="avatar-upload">
-                        <img src="{% if user.image %} {{ user.image.url }} {% else %} {% static 'img/default-avatar-icon.jpg' %} {% endif %}"
-                             alt="Аватар">
-                        {{ form.image }}
-                        <label class="custom-file-label" for="{{ form.image.id_for_label }}"></label>
+                        <img src="{% if user.image %}{{ user.image.url }}{% else %}{% static 'img/default-avatar-icon.jpg' %}{% endif %}" 
+                             alt="Аватар" class="avatar-image">
+                    
+                        <!-- Поле выбора файла скрыто с помощью CSS -->
+                        <input type="file" name="image" accept="image/*" id="{{ form.image.id_for_label }}" style="display: none;">
+                    
+                        <!-- Видимая кнопка -->
+                        <label class="custom-file-label" for="{{ form.image.id_for_label }}">Browse</label>
                     </div>
                     <div class="form-fields">
                         <label for="{{ form.first_name.id_for_label }}">First Name</label>
                         {{ form.first_name }}
-                    
+
                         <label for="{{ form.last_name.id_for_label }}">Last Name</label>
                         {{ form.last_name }}
-                    
+
                         <label for="{{ form.username.id_for_label }}">Username</label>
                         {{ form.username }}
-                    
+
                         <label for="{{ form.email.id_for_label }}">Email</label>
                         {{ form.email }}
-                    
+
                         <label for="{{ form.address.id_for_label }}">Address</label>
                         {{ form.address }}
-    
+
                     </div>
                 </div>
                 <button type="submit" class="save-btn" id="save-btn" style="display: none;">Save</button>
             </form>
             <a href="{% url 'user:logout' %}" class="exit-btn">Exit</a>
         </div>
-    
-        <!-- Корзина -->
-        <div class="cart-section">
-            <h2>Cart <span class="cart-count">3</span></h2>
-            <div class="cart-item">
-                <img src="path/to/product-image.jpg" alt="Product Image" class="product-image">
-                <div class="product-details">
-                    <p class="product-name">Product name</p>
-                    <p class="product-description">Product description</p>
-                    <div class="product-controls">
-                        <input type="number" value="1" min="1" id="product-quantity" class="product-quantity">
-                        <p class="product-price">2 390 руб.</p>
-                    </div>
-                    <p class="total-price" id="total-price">Total Price: <span id="total-price-value">2 390 руб.</span></p>
-                    <button class="delete-btn">🗑</button>
-                </div>
-            </div>
-            <div class="cart-total">
-                <p>Total</p>
-                <p class="total-price">2 390 руб.</p>
-            </div>
-            <button class="checkout-btn">Confirm order</button>
-            
-        </div>
+        
+        {% include 'products/basket.html' %}
+
     </div>
 {% endblock %}
