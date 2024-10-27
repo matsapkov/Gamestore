@@ -230,6 +230,7 @@ nav ul li a:hover {
 .product-quantity {
     width: 50px;
     text-align: center;
+    border: 2px #f0768b solid ;
 }
 
 .product-price {
