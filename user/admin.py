@@ -1,7 +1,11 @@
 from django.contrib import admin
-
+from user.models import User
+from products.admin import BasketAdmin
 # Register your models here.
 
-from user.models import User
 
-admin.site.register(User)
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
+    list_display = ('username',)
+    fields = ['username']
+    inlines = (BasketAdmin,)

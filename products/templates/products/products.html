@@ -6,6 +6,18 @@
 {% block content %} 
     <section class="catalog">
         <h2>Каталог игр</h2>
+        <p>Выберите категорию:</p>
+        <div class="dropdown">
+            <button class="dropdown-btn">Категории</button>
+            <div class="dropdown-content">
+                <a href="{% url 'products:index' %}">Все игры</a>
+                {% for category in categories %}
+                    {% if category.id %}
+                        <a href="{% url 'products:category' category.id %}">{{ category.name }}</a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
         <div class="products">
             {% for product in products %}
             <div class="product">
@@ -17,4 +29,24 @@
             {% endfor %}
         </div>
     </section>
+    
+<div class="pagination-container">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item {% if not products.has_previous %} disabled {% endif %}">
+                <a class="page-link" href="{% if products.has_previous %} {% url 'products:paginator' products.previous_page_number %} {% else %} # {% endif %}" tabindex="-1" aria-disabled="true">
+                    Предыдущая
+                </a>
+            </li>
+            {% for page in products.paginator.page_range %}
+                <li class="page-item {% if products.number == page %} active {% endif %}">
+                    <a class="page-link" href="{% url 'products:paginator' page %}">{{ page }}</a>
+                </li>
+            {% endfor %}
+            <li class="page-item {% if not products.has_next %} disabled {% endif %}">
+                <a class="page-link" href="{% if products.has_next %} {% url 'products:paginator' products.next_page_number %} {% else %} # {% endif %}">Следующая</a>
+            </li>
+        </ul>
+    </nav>
+</div>
 {% endblock %}

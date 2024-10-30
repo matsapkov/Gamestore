@@ -5,6 +5,7 @@ import json
 from products.models import Product, ProductCategory, Basket
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.core.paginator import Paginator
 
 
 def index(request):
@@ -13,12 +14,22 @@ def index(request):
     return render(request,"products/index.html", context)
 
 
-def products(request):
+def products(request, category_id=None, page_number=1):
+    if category_id:
+        category = ProductCategory.objects.get(id=category_id)
+        products_ = Product.objects.filter(category=category)
+    else:
+        products_ = Product.objects.all()
+
+    per_page = 4
+    paginator = Paginator(products_, per_page)
+    products_paginator = paginator.page(page_number)
+
     context = {
         'title': 'Gamestore - Products',
-        'products': Product.objects.all(),
         'categories': ProductCategory.objects.all(),
-               }
+        'products': products_paginator,
+    }
 
     return render(request, "products/products.html", context)
 
@@ -43,6 +54,8 @@ def basket_remove(request, basket_id):
     basket = Basket.objects.get(pk=basket_id)
     basket.delete()
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+ # -------------------------api---------------------------
 
 
 @require_POST

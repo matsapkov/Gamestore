@@ -121,7 +121,90 @@ nav ul li a:hover {
 .product .btn:hover {
     background-color: #f0768b;
 }
+.dropdown {
+    background-color: rgba(0, 0, 0, 0.85);
+    color: #f0768b;
+    margin-top: 20px;
+    position: relative;
+    display: inline-block;
+    margin-bottom: 50px;
+}
 
+.dropdown-btn {
+    background-color: rgba(0, 0, 0, 0.85);
+    color: #f0768b;
+    width: 160px; /* Ширина кнопки */
+    height: 40px; /* Увеличиваем высоту для лучшего внешнего вида */
+    border: #f0768b 2px solid;
+    border-radius: 10px;
+    cursor: pointer; /* Указатель при наведении */
+}
+
+.dropdown-content {
+    background-color: rgba(0, 0, 0, 0.85);
+    display: none;
+    position: absolute;
+    min-width: 160px; /* Ширина выпадающего меню */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    color: #f0768b;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content a {
+    color: #f0768b;
+    background-color: rgba(0, 0, 0, 0.85);
+    padding: 12px 0; /* Убираем боковые отступы */
+    text-decoration: none;
+    display: block;
+    width: 160px; /* Ширина ссылки совпадает с кнопкой */
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+    color: black; /* Изменяем цвет текста при наведении для контраста */
+}
+.pagination-container {
+    display: flex;
+    justify-content: center; /* Центрирует содержимое по горизонтали */
+    margin: 20px 0; /* Отступ сверху и снизу */
+}
+
+.pagination {
+    margin: 0; /* Убирает дополнительные отступы по умолчанию */
+}
+
+.page-item {
+    margin: 0 5px; /* Отступ между элементами */
+}
+
+.page-link {
+    border: 1px solid #f0768b; /* Цвет границы */
+    background-color: rgba(0, 0, 0, 0.85); /* Цвет фона */
+    color: #f0768b; /* Цвет текста */
+    padding: 10px 15px; /* Отступ внутри кнопки */
+    border-radius: 5px; /* Закругление углов */
+    transition: background-color 0.3s; /* Плавный переход для фона */
+}
+
+.page-link:hover {
+    background-color: rgba(0, 0, 0, 0.85); /* Цвет фона при наведении */
+    color: #f0768b; /* Цвет текста при наведении */
+}
+
+.page-item.disabled .page-link {
+    background-color: rgba(0, 0, 0, 0.85); /* Цвет фона для отключенных элементов */
+    color: #f0768b; /* Цвет текста для отключенных элементов */
+}
+
+.active .page-link {
+    background-color: rgba(0, 0, 0, 0.85); /* Цвет фона для активной страницы */
+    color: #ffffff; /* Цвет текста для активной страницы */
+    border: 1px solid #f0768b; /* Цвет границы для активной страницы */
+}
 /* Футер */
 footer {
     text-align: center;
