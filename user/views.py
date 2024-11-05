@@ -1,10 +1,12 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, HttpResponseRedirect
 from django.contrib import auth, messages
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from user.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
 from user.authentication import EmailAuthBackend
 from products.models import Basket
+from django.views.generic.edit import CreateView
+from user.models import User
 # Create your views here.
 
 
@@ -26,16 +28,11 @@ def login(request):
     return render(request, 'user/login.html', context)
 
 
-def registration(request):
-    if request.method == 'POST':
-        form = UserRegistrationForm(data=request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('index'))
-    else:
-        form = UserRegistrationForm()
-    context = {'form': form}
-    return render(request, 'user/registration.html', context)
+class UserRegistrationView(CreateView):
+    model = User
+    template_name = 'user/registration.html'
+    form_class = UserRegistrationForm
+    success_url = reverse_lazy('index')
 
 
 @login_required

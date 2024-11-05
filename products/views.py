@@ -1,37 +1,38 @@
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 import json
 from products.models import Product, ProductCategory, Basket
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.core.paginator import Paginator
+from django.views.generic.base import TemplateView
+from django.views.generic.list import ListView
 
 
-def index(request):
-    context = {'title': 'Gamestore'}
+class IndexView(TemplateView):
+    template_name = 'products/index.html'
 
-    return render(request,"products/index.html", context)
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data()
+        context['title'] = 'Gamestore'
+        return context
 
 
-def products(request, category_id=None, page_number=1):
-    if category_id:
-        category = ProductCategory.objects.get(id=category_id)
-        products_ = Product.objects.filter(category=category)
-    else:
-        products_ = Product.objects.all()
+class ProductListView(ListView):
+    model = Product
+    template_name = 'products/products.html'
+    paginate_by = 4
 
-    per_page = 4
-    paginator = Paginator(products_, per_page)
-    products_paginator = paginator.page(page_number)
+    def get_queryset(self):
+        queryset = super(ProductListView, self).get_queryset()
+        category_id = self.kwargs.get('category_id')
+        return queryset.filter(category_id=category_id) if category_id else queryset
 
-    context = {
-        'title': 'Gamestore - Products',
-        'categories': ProductCategory.objects.all(),
-        'products': products_paginator,
-    }
-
-    return render(request, "products/products.html", context)
+    def get_context_data(self, **kwargs):
+        context = super(ProductListView, self).get_context_data()
+        context['title'] = 'Gamestore - Products'
+        context['categories'] = ProductCategory.objects.all()
+        return context
 
 
 @login_required
