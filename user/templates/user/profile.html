@@ -12,7 +12,7 @@
     <!-- Профиль -->
         <div class="profile-section">
             <h2>Profile</h2>
-            <form id="profile-form" action="{% url 'user:profile' %}" method="post" enctype="multipart/form-data">
+            <form id="profile-form" action="{% url 'user:profile' user.id %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="profile-form">
                     <div class="avatar-upload">
