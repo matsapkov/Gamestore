@@ -1,0 +1,15 @@
+{% extends 'products/base.html' %}
+{% load static %}
+
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/success.css' %}">
+{% endblock %}
+
+{% block content %}
+    <main>
+        <div class="confirmation-message">
+            <h1>Order Placed Successfully</h1>
+        </div>
+    </main>
+{% endblock %}

@@ -25,8 +25,11 @@ SECRET_KEY = 'django-insecure-wyrew+nc+=gef4e-ke68q=3_^-309py822xs4jks+ixgg1m9o_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+DOMAIN_NAME = "http://127.0.0.1:8000"
 
+ALLOWED_HOSTS = ['*']
+
+CSRF_TRUSTED_ORIGINS = ['https://cfb9-31-207-45-15.ngrok-free.app']
 
 # Application definition
 
@@ -37,7 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
 
+    'orders',
     'products',
     'user',
 ]
@@ -65,6 +70,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'products.context_processors.baskets',
             ],
         },
     },
@@ -76,20 +82,14 @@ WSGI_APPLICATION = 'gamestore.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql_psycopg2",
-#         "NAME": "NIRS-5sem",
-#         "USER": "store_username",
-#         "PASSWORD": "store_password",
-#         "HOST": "127.0.0.1",
-#         "PORT": "5432",
-#     }
-# }
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": "mydatabase",
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "NIRS-5sem",
+        "USER": "postgres",
+        "PASSWORD": "at520166",
+        "HOST": "127.0.0.1",
+        "PORT": "5432",
     }
 }
 

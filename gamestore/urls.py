@@ -19,12 +19,15 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 from products.views import IndexView
+from orders.views import yookassa_webhook_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', IndexView.as_view(), name='index'),
     path('products/', include('products.urls', namespace='products')),
     path('user/', include('user.urls', namespace='user')),
+    path('orders/', include('orders.urls', namespace='orders')),
+    path('webhook/yookassa/', yookassa_webhook_view, name='webhook')
 ]
 
 if settings.DEBUG:

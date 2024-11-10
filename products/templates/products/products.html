@@ -1,5 +1,6 @@
 {% extends 'products/base.html' %}
 {% load static %}
+{% load humanize %}
 {% block css %}
     <link rel="stylesheet" href="{% static 'css/products.css' %}">
 {% endblock %}
@@ -23,7 +24,7 @@
             <div class="product">
                 <img src="{{ product.image.url }}" alt="Game 1">
                 <h3>{{ product.name }}</h3>
-                <p class="price">₽{{ product.price }}</p>
+                <p class="price">₽{{ product.price|intcomma }}</p>
                 <a href="{% url 'products:basket_add' product.id %}" class="btn">Купить</a>
             </div>
             {% endfor %}

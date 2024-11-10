@@ -1,0 +1,60 @@
+{% extends 'products/base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block css %} 
+    <link rel="stylesheet" href="{% static 'css/order-create.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+    <main>
+        
+        <h1>Оформление заказа</h1>
+        
+        <div class="checkout-container">
+            <form action="{% url 'orders:order_create' %}" method="post" class="address-form">
+                {% csrf_token %}
+                <label for="{{ form.first_name.id_for_label }}">Имя</label>
+{#                <input type="text" id="name" class="form-control" placeholder="Иван">#}
+                {{ form.first_name }}
+                
+                <label for="{{ form.last_name.id_for_label }}">Фамилия</label>
+{#                <input type="text" id="surname" class="form-control" placeholder="Иванов">#}
+                {{ form.last_name }}
+                
+                <label for="{{ form.email.id_for_label }}">Адрес электронной почты</label>
+{#                <input type="email" id="email" class="form-control" placeholder="you@example.com">#}
+                {{ form.email }}
+                
+                <label for="{{ form.address.id_for_label }}">Адрес доставки</label>
+{#                <input type="text" id="address" class="form-control" placeholder="Россия, Москва, ул. Мира, дом 6">#}
+                {{ form.address }}
+                
+                <button type="submit" class="continue-button">Оплатить</button>
+                
+            </form>
+            
+            <div class="cart">
+                <h2>Cart {{ baskets.total_quantity }} item(s)</h2>
+                
+                {% for basket in baskets %}
+                    <div class="cart-item">
+                        <span>Name: {{ basket.product.name }}</span>
+                        <span>Quantity: {{ basket.quantity }}</span>    
+                        <span>Price: {{ basket.sum|intcomma }} руб.</span>
+                    </div>
+                {% endfor %}
+                
+                <div class="total">
+                    <div class="total-label">Total sum</div>
+                    <div class="total-amount">{{ baskets.total_sum|intcomma }} руб.</div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+    
+    
+{% endblock %}
+

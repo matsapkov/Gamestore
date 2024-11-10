@@ -1,5 +1,6 @@
 <!-- Корзина -->
 {% if baskets %}
+    {% load humanize %}
     <div class="cart-section">
         <h2>Cart: <span class="cart-count">{{ baskets|length }} {% if baskets|length > 1 %} items {% else %} item {% endif %}</span></h2>
         {% for basket in baskets %}
@@ -13,16 +14,16 @@
                                data-basket-id="{{ basket.id }}" data-price="{{ basket.product.price }}">
                         <p class="product-price">{{ basket.product.price }} руб.</p>
                     </div>
-                    <p class="total-price">Total Price: <span id="total-price-{{ basket.id }}">{{ basket.sum }} руб.</span></p>
+                    <p class="total-price">Total Price: <span id="total-price-{{ basket.id }}">{{ basket.sum|intcomma }} руб.</span></p>
                     <a class="delete-btn" href="{% url 'products:basket_remove' basket.id %}">🗑</a>
                 </div>
             </div>
         {% endfor %}
         <div class="cart-total">
             <p>Total</p>
-            <p class="total-price" id="grand-total">{{ baskets.total_sum }} руб.</p>
+            <p class="total-price" id="grand-total">{{ baskets.total_sum|intcomma }} руб.</p>
         </div>
-        <button class="checkout-btn">Confirm order</button>
+        <a href="{% url 'orders:order_create' %}" class="checkout-btn">Continue</a>
     </div>
     
 <script>

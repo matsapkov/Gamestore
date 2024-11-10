@@ -41,7 +41,7 @@ def login(request):
     return render(request, 'user/login.html', context)
 
 
-class UserProfileView(UpdateView):
+class UserProfileView(TitleMixin, UpdateView):
     model = User
     form_class = UserProfileForm
     template_name = 'user/profile.html'

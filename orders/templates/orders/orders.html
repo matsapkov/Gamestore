@@ -1,0 +1,46 @@
+{% extends 'products/base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/orders.css' %}">
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+{% endblock %}
+
+{% block content %}
+    <main>
+        <h2>Orders</h2>
+        <table class="orders-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Status</th>
+                    <th>Created</th>
+                    <th>Sum</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                {% for order in object_list %}
+                    <tr class="
+                        {% if order.status == 3 %}  <!-- DELIVERED -->
+                            status-delivered
+                        {% elif order.status == 2 %}  <!-- ON_WAY -->
+                            status-in-transit
+                        {% endif %}
+                    ">    
+                        <td>{{ order.id }}</td>
+                        <td>{{ order.get_status_display }}</td>
+                        <td>{{ order.created|naturaltime }}</td>
+                        <td>{{ order.basket_history.total_sum|intcomma }} rub.</td>
+                        <td><a href="{% url 'orders:order' order.id %}">Look up</a></td>
+                    </tr>
+                {% endfor %}
+            
+            </tbody>
+        </table>
+    </main>
+{% endblock %}
+
+
