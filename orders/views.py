@@ -122,7 +122,7 @@ def yookassa_webhook_view(request):
     baskets_id = json.loads(metadata['baskets'])
     for ID in baskets_id:
         basket = Basket.objects.get(id=ID)
-        basket.product.sales += 1
+        basket.product.sales += basket.product.quantity
         basket.product.save()
     order_id = int(metadata['order_id'])
     order = Order.objects.get(id=order_id)
