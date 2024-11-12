@@ -57,6 +57,23 @@ class OrderCreateView(TitleMixin, CreateView):
 
         total_sum = sum(basket.quantity * basket.product.price for basket in baskets)
         description = ", ".join([f"{basket.product.name} (x{basket.quantity})" for basket in baskets])
+        baskets_id = [basket.id for basket in baskets]
+
+        list_items = []
+
+        for basket in baskets:
+            item = {
+                "description": f"{basket.product.name}",
+                "quantity": f"{basket.quantity}",
+                "amount": {
+                    "value": f"{basket.product.price}",
+                    "currency": "RUB"
+                },
+                "vat_code": 2,
+                "payment_mode": "full_payment",
+                "payment_subject": "commodity",
+            }
+            list_items.append(item)
 
         payment = Payment.create({
             'amount': {
@@ -68,10 +85,17 @@ class OrderCreateView(TitleMixin, CreateView):
                 'return_url': '{}{}'.format(settings.DOMAIN_NAME, reverse('orders:submit_order'))
             },
             'metadata':{
-                'order_id': self.object.id
+                'order_id': self.object.id,
+                'baskets': json.dumps(baskets_id)
             },
             'capture': True,
-            'description': f' Заказ: {description}'
+            'description': f' Заказ: {description}',
+            'receipt': {
+                   "customer": {
+                        "email": f"{request.user.email}",
+                    },
+                    "items": list_items,
+                    }
         }, uuid.uuid4())
 
         if payment.status == 'pending' and payment.confirmation.confirmation_url:
@@ -95,10 +119,15 @@ def yookassa_webhook_view(request):
     quantities.remove('')
     prices = metadata['price'].split(';;;')
     prices.remove('')"""
-    print(f'metadata -- {metadata}')
+    baskets_id = json.loads(metadata['baskets'])
+    for ID in baskets_id:
+        basket = Basket.objects.get(id=ID)
+        basket.product.sales += 1
+        basket.product.save()
     order_id = int(metadata['order_id'])
     order = Order.objects.get(id=order_id)
     order.update_after_payment()
+
     return HttpResponse(status=200)
 
 

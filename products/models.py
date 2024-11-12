@@ -22,6 +22,7 @@ class Product(models.Model):
     quantity = models.PositiveIntegerField(default=0)
     image = models.ImageField(upload_to='products_image')
     category = models.ForeignKey(to=ProductCategory, on_delete=models.CASCADE)
+    sales = models.PositiveIntegerField(default=0)
 
     class Meta:
         verbose_name = 'product'

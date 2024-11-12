@@ -29,7 +29,7 @@ DOMAIN_NAME = "http://127.0.0.1:8000"
 
 ALLOWED_HOSTS = ['*']
 
-CSRF_TRUSTED_ORIGINS = ['https://cfb9-31-207-45-15.ngrok-free.app']
+CSRF_TRUSTED_ORIGINS = ['https://1de8-84-17-55-151.ngrok-free.app']
 
 # Application definition
 
@@ -87,7 +87,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
         "NAME": "NIRS-5sem",
         "USER": "postgres",
-        "PASSWORD": "at520166",
+        "PASSWORD": "123456",
         "HOST": "127.0.0.1",
         "PORT": "5432",
     }
